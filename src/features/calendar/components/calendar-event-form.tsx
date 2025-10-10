@@ -15,11 +15,11 @@ import {
 } from '@/components/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import * as z from 'zod';
+import { z } from 'zod';
 
-import { CALENDAR_COLORS } from '@/app/lib/calendar';
-import { cn } from '@/libs/style';
-import { useCalendar } from './calendar';
+import { useCalendar } from '@/features/calendar/components/calendar';
+import { cn } from '@/libs';
+import { CALENDAR_COLORS } from '@/libs/calendar';
 
 const formSchema = z
   .object({
@@ -28,7 +28,7 @@ const formSchema = z
     startAt: z.string(),
     endDate: z.string(),
     endAt: z.string(),
-    color: z.enum(CALENDAR_COLORS).default(CALENDAR_COLORS[0]),
+    color: z.enum([...CALENDAR_COLORS]).default(CALENDAR_COLORS[0]),
   })
   .superRefine((data, ctx) => {
     if (data.startAt && data.endAt) {
@@ -45,13 +45,13 @@ const formSchema = z
   });
 
 interface CalendarEventProps {
-  onSubmit: (values: z.infer<typeof formSchema>) => void;
-  defaultValues?: z.infer<typeof formSchema>;
+  onSubmit: (values: z.output<typeof formSchema>) => void;
+  defaultValues?: z.input<typeof formSchema>;
 }
 
 const CalendarEventForm = ({ onSubmit, defaultValues }: CalendarEventProps) => {
   const calendar = useCalendar();
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<z.input<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
@@ -61,13 +61,16 @@ const CalendarEventForm = ({ onSubmit, defaultValues }: CalendarEventProps) => {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit, (errors) => {
-          toast.error(
-            Object.values(errors)
-              .map((error) => error.message)
-              .join('\n'),
-          );
-        })}
+        onSubmit={form.handleSubmit(
+          (values) => onSubmit(formSchema.parse(values)),
+          (errors) => {
+            toast.error(
+              Object.values(errors)
+                .map((error) => error.message)
+                .join('\n'),
+            );
+          },
+        )}
         className="mt-4 flex flex-col gap-y-4"
       >
         <FormField

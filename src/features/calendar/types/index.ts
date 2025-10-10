@@ -1,4 +1,4 @@
-import { CALENDAR_COLORS } from '@/app/lib/calendar';
+import { CALENDAR_COLORS } from '@/libs/calendar';
 
 export type CalendarWeekStartsOn = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 export type CalendarHours =

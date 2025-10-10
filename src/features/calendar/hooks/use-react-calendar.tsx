@@ -4,18 +4,6 @@ import { showDialog, showSheet } from '@/features/calendar/hooks';
 import { createStore, useStore, useStoreEffect } from '@/libs/store';
 import * as React from 'react';
 
-import {
-  CALENDAR_COLORS,
-  getModifierKeyPrefix,
-  normalizeEvents,
-  resolveFormatters,
-  resolveLayout,
-  resolveShortcuts,
-  resolveTranslations,
-  sortEvents,
-} from '@/app/lib/calendar';
-import { formatDate, formatTime, isDatesBetween } from '@/app/lib/time';
-import { generateUUID } from '@/app/lib/utils';
 import { CalendarEventForm } from '@/features/calendar/components/calendar-event-form';
 import {
   CalendarApi,
@@ -29,6 +17,18 @@ import {
   CalendarViewId,
   CalendarViewMeta,
 } from '@/features/calendar/types';
+import { generateUUID } from '@/libs';
+import {
+  CALENDAR_COLORS,
+  getModifierKeyPrefix,
+  normalizeEvents,
+  resolveFormatters,
+  resolveLayout,
+  resolveShortcuts,
+  resolveTranslations,
+  sortEvents,
+} from '@/libs/calendar';
+import { formatDate, formatTime, isDatesBetween } from '@/utils/time';
 import { toast } from 'sonner';
 
 const DEFAULT_LOCALE = 'en-US';

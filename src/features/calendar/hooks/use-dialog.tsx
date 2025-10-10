@@ -9,14 +9,14 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/dialog';
+} from '@/components/ui/dialog';
 import {
   Drawer,
   DrawerContent,
   DrawerDescription,
   DrawerHeader,
   DrawerTitle,
-} from '@/components/drawer';
+} from '@/components/ui/drawer';
 import { cn } from '@/libs/style';
 import { useMediaQuery } from './use-media-query';
 
