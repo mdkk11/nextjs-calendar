@@ -1,8 +1,10 @@
 'use client';
 
-import { Toaster } from '@/app/components';
+import { Toaster } from '@/components/ui';
 import * as React from 'react';
 
+import { DialogContainer, SheetContainer } from '@/app/hooks';
+import { useReactCalendar } from '@/features/calendar/hooks';
 import {
   CalendarApi,
   CalendarOptions,
@@ -11,7 +13,7 @@ import {
   CalendarViewConfiguration,
   CalendarViewId,
   CalendarViewMeta,
-} from '@/app/types';
+} from '@/features/calendar/types';
 
 const CalendarContext = React.createContext<
   CalendarApi<

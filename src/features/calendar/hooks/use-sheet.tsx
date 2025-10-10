@@ -1,24 +1,22 @@
-"use client";
+'use client';
 
-import { createStore, useStore } from "@illostack/react-store";
-import * as React from "react";
+import { createStore, useStore } from '@/libs/store';
+import * as React from 'react';
 
 import {
   Drawer,
   DrawerContent,
   DrawerDescription,
   DrawerHeader,
-  DrawerTitle
-} from "../components/drawer";
-import {
+  DrawerTitle,
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
-  SheetTitle
-} from "../components/sheet";
-import { cn } from "../lib/utils";
-import { useMediaQuery } from "./use-media-query";
+  SheetTitle,
+} from '@/components/ui';
+import { useMediaQuery } from '@/features/calendar/hooks';
+import { cn } from '@/libs/style';
 
 type Sheets = {
   [key: string]: SheetContent;
@@ -40,7 +38,7 @@ const store = createStore<Sheets>({});
 export const showSheet = (content: SheetContent) => {
   store.update((prev) => ({
     ...prev,
-    [generateId()]: content
+    [generateId()]: content,
   }));
 };
 
@@ -64,24 +62,17 @@ export const SheetContainer = React.memo(() => {
   );
 });
 
-SheetContainer.displayName = "SheetContainer";
+SheetContainer.displayName = 'SheetContainer';
 
 const SheetComponent = ({
   id,
-  sheetContent: {
-    title,
-    description,
-    render,
-    onClose: _onClose,
-    className,
-    ...props
-  }
+  sheetContent: { title, description, render, onClose: _onClose, className, ...props },
 }: {
   id: string;
   sheetContent: SheetContent;
 }) => {
   const [open, setOpen] = React.useState(true);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const isDesktop = useMediaQuery('(min-width: 768px)');
 
   React.useEffect(() => {
     if (!open) {
@@ -119,14 +110,12 @@ const SheetComponent = ({
 
   return (
     <Drawer open={open} onOpenChange={toggle}>
-      <DrawerContent className={cn("flex max-h-dvh flex-col gap-0", className)}>
+      <DrawerContent className={cn('flex max-h-dvh flex-col gap-0', className)}>
         <DrawerHeader className="flex-none">
           <DrawerTitle>{title}</DrawerTitle>
           {description && <DrawerDescription>{description}</DrawerDescription>}
         </DrawerHeader>
-        <div className="flex flex-grow flex-col overflow-y-auto">
-          {render(onClose)}
-        </div>
+        <div className="flex flex-grow flex-col overflow-y-auto">{render(onClose)}</div>
       </DrawerContent>
     </Drawer>
   );

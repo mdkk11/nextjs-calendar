@@ -1,5 +1,3 @@
-import { CalendarWeekStartsOn } from '@/features/calendar/types/calendar';
-
 const isSameDay = (d1: Date, d2: Date) => {
   return (
     d1.getFullYear() === d2.getFullYear() &&
@@ -122,7 +120,7 @@ const getRangeDays = (date: Date, numOfDays: number) => {
   return days;
 };
 
-const getWeekDays = (date: Date, weekStartsOn: CalendarWeekStartsOn = 0) => {
+const getWeekDays = (date: Date, weekStartsOn = 0) => {
   const start = startOfWeek(date, weekStartsOn);
   const end = endOfWeek(date, weekStartsOn);
 
@@ -137,11 +135,7 @@ const getWeekDays = (date: Date, weekStartsOn: CalendarWeekStartsOn = 0) => {
   return days;
 };
 
-const getMonthDays = (
-  date: Date,
-  showOutsideDays: boolean = true,
-  weekStartsOn: CalendarWeekStartsOn = 0,
-) => {
+const getMonthDays = (date: Date, showOutsideDays: boolean = true, weekStartsOn = 0) => {
   const start = startOfMonth(date);
   const end = endOfMonth(date);
 

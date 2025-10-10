@@ -1,6 +1,6 @@
 'use client';
 
-import { Calendar, CalendarContent } from '@/app/calendar/_components/calendar';
+import { Calendar, CalendarContent } from '@/features/calendar/components/calendar'
 import { CalendarDayView } from '@illostack/react-calendar-day';
 import { CalendarMonthView } from '@illostack/react-calendar-month';
 import { CalendarRangeView } from '@illostack/react-calendar-range';
@@ -9,7 +9,7 @@ import { useTheme } from 'next-themes';
 import { parseAsIsoDate, parseAsNumberLiteral, parseAsStringEnum, useQueryStates } from 'nuqs';
 import * as React from 'react';
 
-import { useFakeApi } from "@/app/calendar/_hooks/use-fake-api"
+import { useFakeApi } from "@/features/calendar/hooks"
 
 export default function Page({
   params,

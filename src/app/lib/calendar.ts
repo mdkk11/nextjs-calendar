@@ -8,7 +8,7 @@ import {
   CalendarViewConfiguration,
   CalendarViewId,
   CalendarViewMeta,
-} from '@/app/types/calendar';
+} from '@/features/calendar/types/calendar';
 
 export const CALENDAR_COLORS = [
   'blue',

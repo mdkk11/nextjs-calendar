@@ -1,6 +1,6 @@
 'use client';
 
-import { CalendarEvent, CalendarProvidedEvent } from '@/app/types/calendar';
+import { CalendarEvent, CalendarProvidedEvent } from '@/features/calendar/types';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 

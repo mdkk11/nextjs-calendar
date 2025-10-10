@@ -1,7 +1,7 @@
 'use client';
 
-import { showDialog, showSheet } from '@/app/hooks';
-import { createStore, useStore, useStoreEffect } from '@/app/store';
+import { showDialog, showSheet } from '@/features/calendar/hooks';
+import { createStore, useStore, useStoreEffect } from '@/libs/store';
 import * as React from 'react';
 
 import {
@@ -16,6 +16,7 @@ import {
 } from '@/app/lib/calendar';
 import { formatDate, formatTime, isDatesBetween } from '@/app/lib/time';
 import { generateUUID } from '@/app/lib/utils';
+import { CalendarEventForm } from '@/features/calendar/components/calendar-event-form';
 import {
   CalendarApi,
   CalendarEvent,
@@ -27,9 +28,8 @@ import {
   CalendarViewConfiguration,
   CalendarViewId,
   CalendarViewMeta,
-} from '@/app/types/calendar';
+} from '@/features/calendar/types';
 import { toast } from 'sonner';
-import { CalendarEventForm } from '../calendar/_components/calendar-event-form';
 
 const DEFAULT_LOCALE = 'en-US';
 const DEFAULT_WEEK_STARTS_ON = 0;

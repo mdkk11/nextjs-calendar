@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { createStore, useStore, useStoreEffect, useStoreActions } from './';
+import { createStore, useStore, useStoreActions, useStoreEffect } from '.';
 
 // ============================================
 // 例1: 基本的な使い方
@@ -20,14 +20,14 @@ const counterStore = createStore<CounterState>({
 const Counter: React.FC = () => {
   // 1. 全体の状態を取得
   const state = useStore(counterStore);
-  
+
   // 2. 特定の値だけを取得（推奨：再レンダリングを最小化）
   // ⚠️ 重要: selectorはuseCallbackでメモ化すること！
   const count = useStore(
     counterStore,
-    useCallback((s) => s.count, [])
+    useCallback((s) => s.count, []),
   );
-  
+
   // 3. アクションを定義
   const increment = () => {
     counterStore.setState((prev) => ({
@@ -36,7 +36,7 @@ const Counter: React.FC = () => {
       lastUpdated: new Date(),
     }));
   };
-  
+
   const decrement = () => {
     counterStore.setState((prev) => ({
       ...prev,
@@ -44,7 +44,7 @@ const Counter: React.FC = () => {
       lastUpdated: new Date(),
     }));
   };
-  
+
   return (
     <div>
       <h2>Count: {count}</h2>
@@ -94,27 +94,27 @@ const todoActions = {
       ],
     }));
   },
-  
+
   toggleTodo: (id: string) => {
     todoStore.setState((prev) => ({
       ...prev,
       todos: prev.todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
       ),
     }));
   },
-  
+
   deleteTodo: (id: string) => {
     todoStore.setState((prev) => ({
       ...prev,
       todos: prev.todos.filter((todo) => todo.id !== id),
     }));
   },
-  
+
   setFilter: (filter: TodoState['filter']) => {
     todoStore.setState((prev) => ({ ...prev, filter }));
   },
-  
+
   setSearchQuery: (query: string) => {
     todoStore.setState((prev) => ({ ...prev, searchQuery: query }));
   },
@@ -127,25 +127,25 @@ const TodoList: React.FC = () => {
     todoStore,
     useCallback((state) => {
       let result = state.todos;
-      
+
       // フィルター適用
       if (state.filter === 'active') {
         result = result.filter((t) => !t.completed);
       } else if (state.filter === 'completed') {
         result = result.filter((t) => t.completed);
       }
-      
+
       // 検索適用
       if (state.searchQuery) {
         result = result.filter((t) =>
-          t.text.toLowerCase().includes(state.searchQuery.toLowerCase())
+          t.text.toLowerCase().includes(state.searchQuery.toLowerCase()),
         );
       }
-      
+
       return result;
-    }, [])
+    }, []),
   );
-  
+
   return (
     <ul>
       {filteredTodos.map((todo) => (
@@ -168,7 +168,7 @@ const TodoList: React.FC = () => {
 // TODO 入力コンポーネント
 const TodoInput: React.FC = () => {
   const [text, setText] = React.useState('');
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (text.trim()) {
@@ -176,14 +176,10 @@ const TodoInput: React.FC = () => {
       setText('');
     }
   };
-  
+
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="新しいTODO"
-      />
+      <input value={text} onChange={(e) => setText(e.target.value)} placeholder="新しいTODO" />
       <button type="submit">追加</button>
     </form>
   );
@@ -193,27 +189,18 @@ const TodoInput: React.FC = () => {
 const TodoFilters: React.FC = () => {
   const filter = useStore(
     todoStore,
-    useCallback((s) => s.filter, [])
+    useCallback((s) => s.filter, []),
   );
-  
+
   return (
     <div>
-      <button
-        onClick={() => todoActions.setFilter('all')}
-        disabled={filter === 'all'}
-      >
+      <button onClick={() => todoActions.setFilter('all')} disabled={filter === 'all'}>
         すべて
       </button>
-      <button
-        onClick={() => todoActions.setFilter('active')}
-        disabled={filter === 'active'}
-      >
+      <button onClick={() => todoActions.setFilter('active')} disabled={filter === 'active'}>
         未完了
       </button>
-      <button
-        onClick={() => todoActions.setFilter('completed')}
-        disabled={filter === 'completed'}
-      >
+      <button onClick={() => todoActions.setFilter('completed')} disabled={filter === 'completed'}>
         完了済み
       </button>
     </div>
@@ -235,14 +222,14 @@ const TodoEffects: React.FC = () => {
         localStorage.setItem('todos', JSON.stringify(state.todos));
         console.log('TODOs saved to localStorage');
       }
-      
+
       // クリーンアップ関数（オプション）
       return () => {
         console.log('Effect cleanup');
       };
-    }
+    },
   );
-  
+
   // TODOが完了したときに通知
   useStoreEffect(
     todoStore,
@@ -250,13 +237,13 @@ const TodoEffects: React.FC = () => {
     (state, prevState) => {
       const completedCount = state.todos.filter((t) => t.completed).length;
       const prevCompletedCount = prevState.todos.filter((t) => t.completed).length;
-      
+
       if (completedCount > prevCompletedCount) {
         console.log('🎉 TODO completed!');
       }
-    }
+    },
   );
-  
+
   return null; // このコンポーネントは何もレンダリングしない
 };
 
@@ -281,14 +268,14 @@ const TodoWithActions: React.FC = () => {
         ],
       }));
     },
-    
+
     clearCompleted: () => {
       setState((prev) => ({
         ...prev,
         todos: prev.todos.filter((t) => !t.completed),
       }));
     },
-    
+
     toggleAll: () => {
       const allCompleted = getState().todos.every((t) => t.completed);
       setState((prev) => ({
@@ -297,7 +284,7 @@ const TodoWithActions: React.FC = () => {
       }));
     },
   }));
-  
+
   return (
     <div>
       <button onClick={() => actions.addTodo('New TODO')}>クイック追加</button>
@@ -339,9 +326,9 @@ const UserProfile: React.FC = () => {
   const user = useStore(userStore);
   const theme = useStore(
     settingsStore,
-    useCallback((s) => s.theme, [])
+    useCallback((s) => s.theme, []),
   );
-  
+
   return (
     <div style={{ background: theme === 'dark' ? '#333' : '#fff' }}>
       <h2>{user.name || 'Guest'}</h2>
@@ -362,14 +349,14 @@ const AppWithStore: React.FC = () => {
       const todos = JSON.parse(savedTodos);
       todoStore.setState((prev) => ({ ...prev, todos }));
     }
-    
+
     // コンポーネントのアンマウント時にクリーンアップ
     return () => {
       // 必要に応じてストアを破棄
       // todoStore.destroy();
     };
   }, []);
-  
+
   return (
     <div>
       <TodoInput />
@@ -409,4 +396,4 @@ const AppWithStore: React.FC = () => {
    ✅ ログ、API呼び出し、localStorage保存など
 */
 
-export { Counter, TodoList, TodoInput, TodoFilters, UserProfile, AppWithStore };
+export { AppWithStore, Counter, TodoFilters, TodoInput, TodoList, UserProfile };

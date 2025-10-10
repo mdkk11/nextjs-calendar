@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { createStore, useStore } from "@illostack/react-store";
-import * as React from "react";
+import { createStore, useStore } from '@/libs/store';
+import * as React from 'react';
 
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle
-} from "../components/dialog";
+  DialogTitle,
+} from '@/components/dialog';
 import {
   Drawer,
   DrawerContent,
   DrawerDescription,
   DrawerHeader,
-  DrawerTitle
-} from "../components/drawer";
-import { cn } from "../lib/utils";
-import { useMediaQuery } from "./use-media-query";
+  DrawerTitle,
+} from '@/components/drawer';
+import { cn } from '@/libs/style';
+import { useMediaQuery } from './use-media-query';
 
 type Dialogs = {
   [key: string]: DialogContent;
@@ -40,7 +40,7 @@ const store = createStore<Dialogs>({});
 export const showDialog = (content: DialogContent) => {
   store.update((prev) => ({
     ...prev,
-    [generateId()]: content
+    [generateId()]: content,
   }));
 };
 
@@ -64,24 +64,17 @@ export const DialogContainer = React.memo(() => {
   );
 });
 
-DialogContainer.displayName = "DialogContainer";
+DialogContainer.displayName = 'DialogContainer';
 
 const DialogComponent = ({
   id,
-  dialogContent: {
-    title,
-    description,
-    render,
-    onClose: _onClose,
-    className,
-    ...props
-  }
+  dialogContent: { title, description, render, onClose: _onClose, className, ...props },
 }: {
   id: string;
   dialogContent: DialogContent;
 }) => {
   const [open, setOpen] = React.useState(true);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const isDesktop = useMediaQuery('(min-width: 768px)');
 
   React.useEffect(() => {
     if (!open) {
@@ -109,12 +102,10 @@ const DialogComponent = ({
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={toggle}>
-        <DialogContent className={cn("sm:rounded-2xl", className)} {...props}>
+        <DialogContent className={cn('sm:rounded-2xl', className)} {...props}>
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
-            {description && (
-              <DialogDescription>{description}</DialogDescription>
-            )}
+            {description && <DialogDescription>{description}</DialogDescription>}
           </DialogHeader>
           {render(onClose)}
         </DialogContent>
@@ -124,14 +115,12 @@ const DialogComponent = ({
 
   return (
     <Drawer open={open} onOpenChange={toggle}>
-      <DrawerContent className={cn("flex max-h-dvh flex-col gap-0", className)}>
+      <DrawerContent className={cn('flex max-h-dvh flex-col gap-0', className)}>
         <DrawerHeader className="flex-none">
           <DrawerTitle>{title}</DrawerTitle>
           {description && <DrawerDescription>{description}</DrawerDescription>}
         </DrawerHeader>
-        <div className="flex flex-grow flex-col overflow-y-auto px-6 pb-6">
-          {render(onClose)}
-        </div>
+        <div className="flex flex-grow flex-col overflow-y-auto px-6 pb-6">{render(onClose)}</div>
       </DrawerContent>
     </Drawer>
   );
