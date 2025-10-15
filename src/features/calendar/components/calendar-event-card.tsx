@@ -1,28 +1,97 @@
-import { cva } from "class-variance-authority";
+'use client';
 
-const calendarEventCardVariants = cva(
-  "bg-muted/20 before:absolute before:shadow-xl border group-data-[event-state=active]:ring-2 group-data-[event-state=active]:ring-ring ring-inset pl-4 before:w-1 before:inset-y-1 before:rounded-lg before:left-1",
-  {
-    variants: {
-      color: {
-        green:
-          "before:bg-green-500 dark:before:bg-green-300 before:shadow-green-500 bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200",
-        blue: "before:bg-blue-500 dark:before:bg-blue-300 before:shadow-blue-500 bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200",
-        red: "before:bg-red-500 dark:before:bg-red-300 before:shadow-red-500 bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200",
-        yellow:
-          "before:bg-yellow-500 dark:before:bg-yellow-300 before:shadow-yellow-500 bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200",
-        purple:
-          "before:bg-purple-500 dark:before:bg-purple-300 before:shadow-purple-500 bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-200",
-        pink: "before:bg-pink-500 dark:before:bg-pink-300 before:shadow-pink-500 bg-pink-100 dark:bg-pink-800 text-pink-800 dark:text-pink-200",
-        indigo:
-          "before:bg-indigo-500 dark:before:bg-indigo-300 before:shadow-indigo-500 bg-indigo-100 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200",
-        cyan: "before:bg-cyan-500 dark:before:bg-cyan-300 before:shadow-cyan-500 bg-cyan-100 dark:bg-cyan-800 text-cyan-800 dark:text-cyan-200"
-      }
+import * as React from 'react';
+
+import { cn } from '@/libs';
+import { CalendarEvent } from '../types';
+import { useCalendar } from './calendar';
+
+interface CalendarEventCardResizeHandleProps {
+  event: CalendarEvent;
+  orientation?: 'vertical' | 'horizontal';
+}
+
+const CalendarEventCardResizeHandle: React.FC<CalendarEventCardResizeHandleProps> = ({
+  event,
+  orientation,
+}) => {
+  return (
+    <React.Fragment>
+      <div
+        data-resize-handler="top"
+        data-resize-top-event-id={event.id}
+        className={cn(
+          'hover:bg-primary/10 absolute rounded-full',
+          orientation === 'horizontal' && 'inset-y-2 left-0 w-1 cursor-w-resize',
+          orientation === 'vertical' && 'inset-x-2 top-0 h-1 cursor-n-resize',
+        )}
+      />
+      <div
+        data-resize-handler="bottom"
+        data-resize-bottom-event-id={event.id}
+        className={cn(
+          'hover:bg-primary/10 absolute rounded-full',
+          orientation === 'horizontal' && 'inset-y-2 right-0 w-1 cursor-e-resize',
+          orientation === 'vertical' && 'inset-x-2 bottom-0 h-1 cursor-s-resize',
+        )}
+      />
+    </React.Fragment>
+  );
+};
+
+interface CalendarEventCardProps extends React.HTMLAttributes<HTMLDivElement> {
+  event: CalendarEvent;
+  disabledDrag?: boolean;
+  disabledResize?: boolean;
+  resizeOrientation?: 'vertical' | 'horizontal';
+}
+
+const CalendarEventCard = React.forwardRef<HTMLDivElement, CalendarEventCardProps>(
+  (
+    {
+      children,
+      event,
+      className,
+      disabledDrag,
+      disabledResize,
+      resizeOrientation = 'vertical',
+      ...props
     },
-    defaultVariants: {
-      color: "blue"
-    }
-  }
+    ref,
+  ) => {
+    const calendar = useCalendar();
+    const isCutted = calendar.useIsCuttedEvent(event.id);
+    const isDragging = calendar.useIsDraggingEvent(event.id);
+    const isResizing = calendar.useIsResizingEvent(event.id);
+    const isActive = calendar.useIsActiveEvent(event.id);
+
+    return (
+      <div
+        ref={ref}
+        tabIndex={0}
+        className={cn(
+          'group pointer-events-auto relative p-px select-none',
+          isDragging && 'z-10 opacity-0',
+          isResizing && 'hidden',
+          isCutted && 'pointer-events-none opacity-30',
+          isActive && 'z-10',
+          className,
+        )}
+        draggable="true"
+        aria-label={event.summary || '(Untitled)'}
+        data-event-id={event.id}
+        data-event-state={isActive || isDragging || isResizing ? 'active' : 'inactive'}
+        {...props}
+      >
+        {children}
+        {!disabledResize && (
+          <CalendarEventCardResizeHandle event={event} orientation={resizeOrientation} />
+        )}
+      </div>
+    );
+  },
 );
 
-export { calendarEventCardVariants };
+CalendarEventCard.displayName = 'CalendarEventCard';
+
+export { CalendarEventCard, CalendarEventCardResizeHandle };
