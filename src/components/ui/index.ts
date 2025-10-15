@@ -8,3 +8,17 @@ export * from './label';
 export * from './radio-group';
 export * from './sheet';
 export * from './sonner';
+
+export { cva } from 'class-variance-authority';
+export type { VariantProps } from 'class-variance-authority';
+
+export {
+  CalendarPlusIcon,
+  CheckIcon,
+  ClipboardIcon,
+  CopyIcon,
+  CopyPlusIcon,
+  PencilIcon,
+  SquareDashedIcon,
+  TrashIcon,
+} from 'lucide-react';
