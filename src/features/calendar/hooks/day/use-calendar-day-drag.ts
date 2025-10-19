@@ -1,7 +1,7 @@
 'use client';
 
 import { useCalendar } from '@/features/calendar/components';
-import { computeEventTimeRangeFromPointer } from '@/features/calendar/utils';
+import { computeEventTimeRangeFromPointer } from '@/features/calendar/utils/day';
 import * as React from 'react';
 
 const useCalendarDayDrag = () => {

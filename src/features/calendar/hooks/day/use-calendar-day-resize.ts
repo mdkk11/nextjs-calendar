@@ -3,7 +3,7 @@
 import { useCalendar } from '@/features/calendar/components';
 import * as React from 'react';
 
-import { computeEventTimeRangeFromPointer } from '@/features/calendar/utils';
+import { computeEventTimeRangeFromPointer } from '@/features/calendar/utils/day';
 
 const useCalendarDayResize = () => {
   const containerRef = React.useRef<HTMLDivElement>(null);

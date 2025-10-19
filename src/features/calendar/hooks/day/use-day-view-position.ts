@@ -1,7 +1,7 @@
 'use client';
 
 import { useCalendar } from '@/features/calendar/components';
-import { computePositionFromTime } from '@/features/calendar/utils';
+import { computePositionFromTime } from '@/features/calendar/utils/day';
 import * as React from 'react';
 
 const useDayViewPosition = (startAt: Date, endAt: Date) => {
