@@ -6,9 +6,12 @@ import { useTheme } from 'next-themes';
 import { parseAsIsoDate, parseAsNumberLiteral, parseAsStringEnum, useQueryStates } from 'nuqs';
 import * as React from 'react';
 
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { AppHeader } from '@/features/calendar/components/app-header';
 import { CalendarDayView } from '@/features/calendar/components/day';
 import { CalendarMonthView } from '@/features/calendar/components/month/calendar-month-view';
 import { CalendarRangeView } from '@/features/calendar/components/range';
+import { SidebarLeft } from '@/features/calendar/components/sidebar-left';
 import { CalendarWeekView } from '@/features/calendar/components/week';
 import { useFakeApi } from '@/features/calendar/hooks';
 
@@ -133,16 +136,13 @@ export default function Page({
       }}
       toasterTheme={theme as 'light' | 'dark' | 'system'}
     >
-      {/* <SidebarProvider> */}
-      {/* <SidebarLeft />
-        <SidebarInset> */}
-      {/* <AppHeader /> */}
-      <header>
-        <h1>HEADER</h1>
-      </header>
-      <CalendarContent />
-      {/* </SidebarInset> */}
-      {/* </SidebarProvider> */}
+      <SidebarProvider>
+        <SidebarLeft />
+        <SidebarInset>
+          <AppHeader />
+          <CalendarContent />
+        </SidebarInset>
+      </SidebarProvider>
     </Calendar>
   );
 }
