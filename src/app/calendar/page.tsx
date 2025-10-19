@@ -1,15 +1,16 @@
 'use client';
 
-import { Calendar, CalendarContent } from '@/features/calendar/components/calendar'
-import { CalendarDayView } from '@illostack/react-calendar-day';
-import { CalendarMonthView } from '@illostack/react-calendar-month';
-import { CalendarRangeView } from '@illostack/react-calendar-range';
-import { CalendarWeekView } from '@illostack/react-calendar-week';
+import { Calendar, CalendarContent } from '@/features/calendar/components/calendar';
+
 import { useTheme } from 'next-themes';
 import { parseAsIsoDate, parseAsNumberLiteral, parseAsStringEnum, useQueryStates } from 'nuqs';
 import * as React from 'react';
 
-import { useFakeApi } from "@/features/calendar/hooks"
+import { CalendarDayView } from '@/features/calendar/components/day';
+import { CalendarMonthView } from '@/features/calendar/components/month/calendar-month-view';
+import { CalendarRangeView } from '@/features/calendar/components/range';
+import { CalendarWeekView } from '@/features/calendar/components/week';
+import { useFakeApi } from '@/features/calendar/hooks';
 
 export default function Page({
   params,
@@ -19,7 +20,7 @@ export default function Page({
   }>;
 }>) {
   const { locale } = React.use(params);
-¥  const { theme = 'system' } = useTheme();
+  const { theme = 'system' } = useTheme();
 
   const { events, createEvent, deleteEvent, updateEvent } = useFakeApi();
 
@@ -133,14 +134,14 @@ export default function Page({
       toasterTheme={theme as 'light' | 'dark' | 'system'}
     >
       {/* <SidebarProvider> */}
-        {/* <SidebarLeft />
+      {/* <SidebarLeft />
         <SidebarInset> */}
-          {/* <AppHeader /> */}
-          <header>
-            <h1>HEADER</h1>
-          </header>
-          <CalendarContent />
-        {/* </SidebarInset> */}
+      {/* <AppHeader /> */}
+      <header>
+        <h1>HEADER</h1>
+      </header>
+      <CalendarContent />
+      {/* </SidebarInset> */}
       {/* </SidebarProvider> */}
     </Calendar>
   );
