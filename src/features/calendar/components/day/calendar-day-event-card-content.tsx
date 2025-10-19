@@ -1,11 +1,11 @@
 'use client';
 
 import { VariantProps } from '@/components/ui';
+import { calendarEventCardVariants } from '@/components/ui/calendar-event-card';
 import { useCalendar } from '@/features/calendar/components/calendar';
 import { CalendarEvent } from '@/features/calendar/types';
 import { cn } from '@/libs';
 import * as React from 'react';
-import { calendarEventCardVariants } from '../calendar-event-card';
 
 interface CalendarDayEventCardContentProps
   extends React.ButtonHTMLAttributes<HTMLDivElement>,
