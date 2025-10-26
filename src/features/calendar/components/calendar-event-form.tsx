@@ -19,7 +19,7 @@ import { z } from 'zod';
 
 import { useCalendar } from '@/features/calendar/components/calendar';
 import { cn } from '@/libs';
-import { CALENDAR_COLORS } from '@/libs/calendar';
+import { CALENDAR_COLORS, CALENDAR_TRANSLATIONS } from '@/libs/calendar';
 
 const formSchema = z
   .object({
@@ -38,7 +38,7 @@ const formSchema = z
       if (startAt.getTime() > endAt.getTime()) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: 'La hora de inicio debe ser anterior a la hora de finalización',
+          message: CALENDAR_TRANSLATIONS.form['start-time-before-end-time'],
         });
       }
     }
@@ -114,7 +114,13 @@ const CalendarEventForm = ({ onSubmit, defaultValues }: CalendarEventProps) => {
         <FormField
           name="summary"
           control={form.control}
-          render={({ field }) => <Input autoFocus placeholder="Añade un título" {...field} />}
+          render={({ field }) => (
+            <Input
+              autoFocus
+              placeholder={CALENDAR_TRANSLATIONS.form['title-placeholder']}
+              {...field}
+            />
+          )}
         />
         <div className="flex items-center gap-2">
           <FormField

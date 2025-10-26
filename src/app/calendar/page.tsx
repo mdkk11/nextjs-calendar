@@ -11,9 +11,9 @@ import { AppHeader } from '@/features/calendar/components/app-header';
 import { CalendarDayView } from '@/features/calendar/components/day';
 import { CalendarMonthView } from '@/features/calendar/components/month/calendar-month-view';
 import { CalendarRangeView } from '@/features/calendar/components/range';
-import { SidebarLeft } from '@/features/calendar/components/sidebar-left';
 import { CalendarWeekView } from '@/features/calendar/components/week';
 import { useFakeApi } from '@/features/calendar/hooks';
+import { CALENDAR_TRANSLATIONS } from '@/libs/calendar';
 
 export default function Page({
   params,
@@ -70,74 +70,10 @@ export default function Page({
       onEventUpdate={updateEvent}
       onEventDelete={deleteEvent}
       onRestoreEvent={createEvent}
-      translations={{
-        calendar: {
-          days: {
-            0: 'Sun',
-            1: 'Mon',
-            2: 'Tue',
-            3: 'Wed',
-            4: 'Thu',
-            5: 'Fri',
-            6: 'Sat',
-          },
-          months: {
-            0: 'January',
-            1: 'February',
-            2: 'March',
-            3: 'April',
-            4: 'May',
-            5: 'June',
-            6: 'July',
-            7: 'August',
-            8: 'September',
-            9: 'October',
-            10: 'November',
-            11: 'December',
-          },
-        },
-        literals: {
-          day: 'Day',
-          days: 'Days',
-          week: 'Week',
-          month: 'Month',
-          year: 'Year',
-          today: 'Today',
-          previous: 'Previous',
-          next: 'Next',
-          range: 'Range',
-          more: 'More',
-          'go-to': 'Go to',
-        },
-        form: {
-          save: 'Save',
-        },
-        action: {
-          'create-event': 'Create Event',
-          'update-event': 'Update Event',
-          'delete-event': 'Delete Event',
-          'duplicate-event': 'Duplicate Event',
-          'copy-event': 'Copy Event',
-          'cut-event': 'Cut Event',
-          'paste-event': 'Paste Event',
-          undo: 'Undo',
-        },
-        message: {
-          'event-created': 'Event created',
-          'event-updated': 'Event updated',
-          'event-deleted': 'Event deleted',
-          'event-restored': 'Event restored',
-          'event-duplicated': 'Event duplicated',
-          'event-copied': 'Event copied',
-          'event-cutted': 'Event cut',
-          'event-pasted': 'Event pasted',
-          'event-not-found': 'Event not found',
-        },
-      }}
+      translations={CALENDAR_TRANSLATIONS}
       toasterTheme={theme as 'light' | 'dark' | 'system'}
     >
       <SidebarProvider>
-        <SidebarLeft />
         <SidebarInset>
           <AppHeader />
           <CalendarContent />

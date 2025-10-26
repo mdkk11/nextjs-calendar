@@ -68,6 +68,8 @@ export type CalendarTranslations = {
   };
   form: {
     save: string;
+    'title-placeholder': string;
+    'start-time-before-end-time': string;
   };
   action: {
     'create-event': string;
