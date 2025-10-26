@@ -31,13 +31,16 @@ const CalendarDayTimeIndicator = React.memo<CalendarDayTimeIndicatorProps>(() =>
   const date = calendar.useWatch((s) => s.date);
   const formatters = calendar.getFormatters();
 
+  const position = useDayViewPosition(currentDate || new Date(), currentDate || new Date());
+  const isCurrentDay = React.useMemo(
+    () => (currentDate ? isSameDay(currentDate, date) : false),
+    [currentDate, date],
+  );
+
   // currentDateがnullの場合は何も表示しない（SSR対応）
   if (!currentDate) {
     return null;
   }
-
-  const position = useDayViewPosition(currentDate, currentDate);
-  const isCurrentDay = React.useMemo(() => isSameDay(currentDate, date), [currentDate, date]);
 
   return (
     <div
