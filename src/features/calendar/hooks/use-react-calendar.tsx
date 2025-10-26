@@ -31,7 +31,7 @@ import {
 import { formatDate, formatTime, isDatesBetween } from '@/utils/time';
 import { toast } from 'sonner';
 
-const DEFAULT_LOCALE = 'en-US';
+const DEFAULT_LOCALE = 'ja-JP';
 const DEFAULT_WEEK_STARTS_ON = 0;
 const DEFAULT_ROW_HEIGHT = 24;
 const DEFAULT_MINUTES_PER_ROW = 15;

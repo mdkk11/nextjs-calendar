@@ -7,6 +7,31 @@ import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/libs/';
 import { DayPicker } from 'react-day-picker';
 
+// 日本語フォーマッター設定
+const japaneseFormatters = {
+  formatWeekdayName: (date: Date) => {
+    const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+    return weekdays[date.getDay()];
+  },
+  formatMonthCaption: (date: Date) => {
+    const months = [
+      '1月',
+      '2月',
+      '3月',
+      '4月',
+      '5月',
+      '6月',
+      '7月',
+      '8月',
+      '9月',
+      '10月',
+      '11月',
+      '12月',
+    ];
+    return `${date.getFullYear()}年 ${months[date.getMonth()]}`;
+  },
+};
+
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
@@ -14,6 +39,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn('p-3', className)}
+      formatters={japaneseFormatters}
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
         month: 'space-y-4',

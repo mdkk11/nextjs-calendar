@@ -22,7 +22,7 @@ export default function Page({
     locale: string;
   }>;
 }>) {
-  const { locale } = React.use(params);
+  const { locale = 'ja-JP' } = React.use(params);
   const { theme = 'system' } = useTheme();
 
   const { events, createEvent, deleteEvent, updateEvent } = useFakeApi();
@@ -49,7 +49,7 @@ export default function Page({
       initialView={view}
       events={events}
       initialDate={date}
-      weekStartsOn={locale === 'es' ? 1 : 0}
+      weekStartsOn={0}
       locale={locale}
       onViewChange={(view) => {
         const { id, meta } = view;
