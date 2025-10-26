@@ -21,7 +21,7 @@ const CalendarDayHeader = React.forwardRef<HTMLDivElement, CalendarDayHeaderProp
       <div
         ref={ref}
         className={cn(
-          'sticky top-16 z-10 grid h-12 w-full flex-none items-center divide-[hsl(var(--calendar-border)/0.5)] border-b bg-[hsl(var(--calendar-background))] pl-20',
+          'bg-background divide-border/50 sticky top-16 z-10 grid h-12 w-full flex-none items-center border-b pl-20',
           className,
         )}
         style={{ gridTemplateColumns: `repeat(${dates.length}, 1fr)` }}
@@ -30,7 +30,7 @@ const CalendarDayHeader = React.forwardRef<HTMLDivElement, CalendarDayHeaderProp
         {dates.map(({ date }, index) => (
           <div
             key={index}
-            className="flex h-full w-full items-center justify-center border-l border-[hsl(var(--calendar-border)/0.5)]"
+            className="border-border/50 flex h-full w-full items-center justify-center border-l"
           >
             <Button
               type="button"
