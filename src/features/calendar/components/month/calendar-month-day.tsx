@@ -55,10 +55,11 @@ const CalendarMonthDayButton = React.memo<CalendarMonthDayButtonProps>(({ date }
   return (
     <Button
       type="button"
-      title={`Go to ${formatters.weekDayName(date)} ${formatters.weekDay(date)}`}
+      title={`${formatters.weekDay(date)}へ移動`}
       variant={isCurrentDay ? 'default' : 'ghost'}
-      className="pointer-events-auto relative z-[1] h-7 w-7 rounded-sm px-2 text-xs capitalize"
-      aria-label={`Go to ${formatters.weekDayName(date)} ${formatters.weekDay(date)}`}
+      size={'sm'}
+      className="pointer-events-auto relative z-[1] size-8 rounded-full px-2 text-xs capitalize"
+      aria-label={`${formatters.weekDay(date)}へ移動`}
       onClick={() => calendar.changeDate(date, 'day')}
     >
       {formatters.weekDay(date)}

@@ -3,7 +3,6 @@ import {
   Columns4Icon,
   GalleryVerticalIcon,
   Grid3X3Icon,
-  Plus,
   PlusIcon,
 } from 'lucide-react';
 import * as React from 'react';
@@ -120,14 +119,13 @@ const SidebarLeft = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
         <Calendars calendars={data.calendars} />
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenu>
+        {/* <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton>
               <Plus />
-              <span>New Calendar</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
-        </SidebarMenu>
+        </SidebarMenu> */}
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

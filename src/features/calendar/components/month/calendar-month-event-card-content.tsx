@@ -33,7 +33,7 @@ const CalendarMonthEventCardContent = React.forwardRef<
       {...props}
     >
       <div className="overflow-hidden">
-        <h3 className="leading-tight font-semibold">{event.summary || '(Untitled)'}</h3>
+        <h3 className="leading-tight font-semibold">{event.summary || '(タイトル無し)'}</h3>
       </div>
       <div>
         <p className="text-[.6rem] leading-tight">
