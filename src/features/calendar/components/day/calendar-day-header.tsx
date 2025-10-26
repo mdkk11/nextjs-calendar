@@ -48,7 +48,6 @@ const CalendarDayHeader = React.forwardRef<HTMLDivElement, CalendarDayHeaderProp
               )}
               onClick={() => calendar.changeDate(date, 'day')}
             >
-              <span>{formatters.weekDayName(date)}</span>
               <span>{formatters.weekDay(date)}</span>
             </Button>
           </div>
