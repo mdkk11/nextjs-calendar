@@ -11,6 +11,7 @@ import { AppHeader } from '@/features/calendar/components/app-header';
 import { CalendarDayView } from '@/features/calendar/components/day';
 import { CalendarMonthView } from '@/features/calendar/components/month/calendar-month-view';
 import { CalendarRangeView } from '@/features/calendar/components/range';
+import { SidebarLeft } from '@/features/calendar/components/sidebar-left';
 import { CalendarWeekView } from '@/features/calendar/components/week';
 import { useFakeApi } from '@/features/calendar/hooks';
 import { CALENDAR_TRANSLATIONS } from '@/libs/calendar';
@@ -74,6 +75,7 @@ export default function Page({
       toasterTheme={theme as 'light' | 'dark' | 'system'}
     >
       <SidebarProvider>
+        <SidebarLeft />
         <SidebarInset>
           <AppHeader />
           <CalendarContent />
