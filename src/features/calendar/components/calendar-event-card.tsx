@@ -78,7 +78,7 @@ const CalendarEventCard = React.forwardRef<HTMLDivElement, CalendarEventCardProp
           className,
         )}
         draggable="true"
-        aria-label={event.summary || '(Untitled)'}
+        aria-label={event.summary || 'タイトル無し'}
         data-event-id={event.id}
         data-event-state={isActive || isDragging || isResizing ? 'active' : 'inactive'}
         {...props}

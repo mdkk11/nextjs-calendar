@@ -34,7 +34,7 @@ const CalendarDayEventCardContent = React.forwardRef<
     >
       <div className="overflow-hidden">
         <h3 className="text-[.65rem] leading-tight font-semibold">
-          {event.summary || '(Untitled)'}
+          {event.summary || '(タイトル無し)'}
         </h3>
       </div>
       <div>
